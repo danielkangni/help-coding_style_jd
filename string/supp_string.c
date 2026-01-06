@@ -1,8 +1,8 @@
 /*
 ** EPITECH PROJECT, 2026
-** string.c
-** Implementation of string_t methods
-** string.c
+** my_strdup.c
+** File description:
+** my_strdup.c
 */
 
 #include "string.h"

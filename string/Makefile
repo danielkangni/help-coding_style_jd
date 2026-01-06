@@ -7,7 +7,7 @@
 
 NAME 	=	libstring.a
 
-SRC	=	$(filter-out test_main.c,$(wildcard *.c))
+SRC	=	$(wildcard *.c)
 
 OBJ	=	$(SRC:.c=.o)
 

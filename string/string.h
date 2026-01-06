@@ -37,13 +37,13 @@ typedef struct string {
 void string_init(string_t *this, const char *s);
 void string_destroy(string_t *this);
 bool empty(const string_t *this);
-size_t length (const string_t *this);
+size_t length(const string_t *this);
 char at(const string_t *this , size_t pos);
 void print(const string_t *this);
 const char *data(const string_t *this);
 void clear(string_t *this);
-void assign (string_t *this, const char *str);
-void append(string_t *this , const char *str);
+void assign(string_t *this, const char *str);
+void append(string_t *this, const char *str);
 char *my_strncpy(char *dest, const char *src, int n);
 char *my_strdup(const char *str);
 char *my_strcat(char *dest, const char *src);

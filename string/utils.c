@@ -70,4 +70,3 @@ int my_strlen(const char *s)
         length++;
     return length;
 }
-

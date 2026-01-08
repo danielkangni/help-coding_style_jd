@@ -7,9 +7,6 @@
 #include "array.h"
 #include <stdlib.h>
 
-
-//static void bind_methods(array_t *this);
-
 void reset_array(array_t *this)
 {
     if (!this)
@@ -59,14 +56,4 @@ void copy_old_into_new(array_t *this, void **new_data, size_t new__size)
         new_data[i] = this->str[i];
         ++i;
     }
-}
-
-void bind_methods(array_t *this)
-{
-    this->empty = &empty;
-    this->size = &size;
-    this->resize = &resize;
-    this->get = &get;
-    this->set = &set;
-    this->apply = &apply;
 }

@@ -30,7 +30,7 @@ typedef struct array {
     void *(*get)(const struct array *thi, size_t index);
     bool (*set)(struct array *thi, size_t index, void *value);
     void (*apply)(struct array *thi, void *(*function)(void *));
-} array_t; 
+} array_t;
 
 void array_init(array_t *thi, size_t size);
 void array_destroy(array_t *thi);

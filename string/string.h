@@ -38,7 +38,7 @@ void string_init(string_t *this, const char *s);
 void string_destroy(string_t *this);
 bool empty(const string_t *this);
 size_t length(const string_t *this);
-char at(const string_t *this , size_t pos);
+char sup_at(const string_t *this, size_t pos);
 void print(const string_t *this);
 const char *data(const string_t *this);
 void clear(string_t *this);

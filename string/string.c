@@ -19,7 +19,7 @@ void string_init(string_t *this, const char *s)
     }
     this->empty = empty;
     this->length = length;
-    this->at = at;
+    this->at = sup_at;
     this->print = print;
     this->data = data;
     this->clear = clear;
@@ -50,9 +50,9 @@ bool empty(const string_t *this)
     return this->size == 0;
 }
 
-char at(const string_t *this, size_t pos)
+char sup_at(const string_t *this, size_t pos)
 {
     if (!this || pos >= this->size)
-        return '\0';
+        return (char) - 1;
     return this->str[pos];
 }

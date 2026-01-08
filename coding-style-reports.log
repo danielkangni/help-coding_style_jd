@@ -1,0 +1,17 @@
+./array/Makefile:22: INFO:C-A3
+./array/array.c:51: MAJOR:C-O3
+./array/array.c:69: MAJOR:C-O3
+./array/array.c:83: MAJOR:C-O3
+./array/array.c:89: INFO:C-A3
+./array/array.h:33: MINOR:C-G7
+./array/array_utils.c:64: MAJOR:C-O3
+./array/array_utils.c:72: INFO:C-A3
+./array/main.c:1: MINOR:C-G1
+./array/main.c:7: MINOR:C-L6
+./array/main.c:9: MAJOR:C-L5
+./array/main.c:14: MAJOR:C-L5
+./array/main.c:20: INFO:C-A3
+./string/Makefile:22: INFO:C-A3
+./string/string.h:51: INFO:C-A3
+./zorglub/Makefile:46: INFO:C-A3
+./zorglub/z.c:13: INFO:C-A3

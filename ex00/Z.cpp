@@ -4,10 +4,10 @@
 ** File description:
 ** step1
 */
-#include <stdio.h>
 
-int main(void)
-{
-    printf("z\n");
+#include <iostream>
+
+int main() {
+    std::cout << "Z" << std::endl;
     return 0;
 }

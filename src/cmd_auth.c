@@ -36,10 +36,10 @@ void cmd_pass(int i, const char *arg)
     }
 }
 
-void cmd_quit(int i)
+void cmd_quit(int i, struct pollfd *fds, int *nfds)
 {
     send_reply(clients[i].fd, "221 Goodbye.\r\n");
-    cleanup_client(i, g_fds, g_nfds);
+    cleanup_client(i, fds, nfds);
 }
 
 void cmd_noop(int i)

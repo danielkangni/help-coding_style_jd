@@ -55,7 +55,7 @@ void cmd_cwd(int i, const char *arg)
     }
     if (arg[0] == '/')
         snprintf(newpath, sizeof(newpath),
-            "%s%s", home_path, arg);
+            "%s%s", get_home_path(), arg);
     else
         snprintf(newpath, sizeof(newpath),
             "%s/%s", clients[i].cwd, arg);

@@ -8,7 +8,17 @@
 #include "../include/server.h"
 
 client_t clients[MAX_CLIENTS];
-char *home_path = NULL;
+static char *home_path;
+
+void set_home_path(char *path)
+{
+    home_path = path;
+}
+
+const char *get_home_path(void)
+{
+    return home_path;
+}
 
 static void register_client(int i, int fd,
     struct pollfd *fds, int *nfds)

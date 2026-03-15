@@ -1,5 +1,0 @@
-./Makefile:1: MINOR:C-G1
-./src/client.c:11: MAJOR:C-G4
-./src/main.c:10: MAJOR:C-G4
-./src/main.c:11: MAJOR:C-G4
-./src/parse.c:55: MAJOR:C-L1

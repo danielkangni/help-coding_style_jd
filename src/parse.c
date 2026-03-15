@@ -33,35 +33,36 @@ static void parse_command(const char *line,
     arg[j] = '\0';
 }
 
-static void process_line(int i, char *line)
+static void process_line(int i, char *line,
+    poll_ctx_t *ctx)
 {
     char cmd[16] = {0};
     char arg[BUF_SIZE] = {0};
     int len = strlen(line);
 
-    while (len > 0 && (line[len - 1] == '\r'
-        || line[len - 1] == '\n')) {
+    while (len > 0 && (line[len - 1] == '\n')) {
         line[len - 1] = '\0';
         len--;
     }
     parse_command(line, cmd, arg);
-    dispatch_command(i, cmd, arg);
+    dispatch_command(i, cmd, arg, ctx);
 }
 
-static void process_buffer(int i)
+static void process_buffer(int i, poll_ctx_t *ctx)
 {
     char *nl;
 
-    while ((nl = strstr(clients[i].buf, "\r\n"))
-        != NULL) {
+    nl = strstr(clients[i].buf, "\n");
+    while (nl != NULL) {
         *nl = '\0';
-        process_line(i, clients[i].buf);
+        process_line(i, clients[i].buf, ctx);
         if (clients[i].fd == -1)
             return;
         nl += 2;
         clients[i].buf_used -= (nl - clients[i].buf);
         memmove(clients[i].buf, nl, clients[i].buf_used);
         clients[i].buf[clients[i].buf_used] = '\0';
+        nl = strstr(clients[i].buf, "\n");
     }
 }
 
@@ -69,6 +70,7 @@ void handle_clients(struct pollfd *fds, int *nfds)
 {
     int r;
     int i;
+    poll_ctx_t ctx = {fds, nfds};
 
     for (i = 1; i < *nfds; i++) {
         if (fds[i].fd == -1 || !(fds[i].revents & POLLIN))
@@ -82,6 +84,6 @@ void handle_clients(struct pollfd *fds, int *nfds)
         }
         clients[i].buf_used += r;
         clients[i].buf[clients[i].buf_used] = '\0';
-        process_buffer(i);
+        process_buffer(i, &ctx);
     }
 }

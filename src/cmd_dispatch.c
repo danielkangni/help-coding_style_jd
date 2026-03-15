@@ -8,7 +8,7 @@
 #include "../include/server.h"
 
 static int dispatch_auth(int i, const char *cmd,
-    const char *arg)
+    const char *arg, poll_ctx_t *ctx)
 {
     if (strcmp(cmd, "USER") == 0) {
         cmd_user(i, arg);
@@ -19,7 +19,7 @@ static int dispatch_auth(int i, const char *cmd,
         return (1);
     }
     if (strcmp(cmd, "QUIT") == 0) {
-        cmd_quit(i);
+        cmd_quit(i, ctx);
         return (1);
     }
     return (0);
@@ -65,14 +65,14 @@ static int dispatch_extra(int i, const char *cmd)
 }
 
 void dispatch_command(int i, const char *cmd,
-    const char *arg)
+    const char *arg, poll_ctx_t *ctx)
 {
     if (cmd[0] == '\0') {
         send_reply(clients[i].fd,
             "500 Syntax error.\r\n");
         return;
     }
-    if (dispatch_auth(i, cmd, arg))
+    if (dispatch_auth(i, cmd, arg, ctx))
         return;
     if (dispatch_nav(i, cmd, arg))
         return;

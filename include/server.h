@@ -31,6 +31,11 @@ enum {
     BUF_SIZE = 4096
 };
 
+typedef struct poll_ctx_s {
+    struct pollfd *fds;
+    int *nfds;
+} poll_ctx_t;
+
 typedef struct client_s {
     int fd;
     int logged_in;
@@ -51,9 +56,8 @@ typedef struct pasv_info_s {
 } pasv_info_t;
 
 extern client_t clients[MAX_CLIENTS];
-extern char *home_path;
-extern struct pollfd *g_fds;
-extern int *g_nfds;
+void set_home_path(char *path);
+const char *get_home_path(void);
 
 void send_reply(int fd, const char *msg);
 int create_server_socket(int port);
@@ -64,10 +68,10 @@ void cleanup_client(int i,
     struct pollfd *fds, int *nfds);
 void handle_clients(struct pollfd *fds, int *nfds);
 void dispatch_command(int i, const char *cmd,
-    const char *arg);
+    const char *arg, poll_ctx_t *ctx);
 void cmd_user(int i, const char *arg);
 void cmd_pass(int i, const char *arg);
-void cmd_quit(int i);
+void cmd_quit(int i, poll_ctx_t *ctx);
 void cmd_noop(int i);
 void cmd_help(int i);
 void cmd_pwd(int i);

@@ -1,3 +1,10 @@
+##
+## EPITECH PROJECT, 2025
+## myftp
+## File description:
+## Makefile
+##
+
 NAME        = myftp
 
 CC          = gcc

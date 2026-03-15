@@ -47,10 +47,32 @@ static int dispatch_nav(int i, const char *cmd,
     return (0);
 }
 
+static int dispatch_file(int i, const char *cmd,
+    const char *arg)
+{
+    if (strcmp(cmd, "DELE") == 0) {
+        cmd_dele(i, arg);
+        return (1);
+    }
+    if (strcmp(cmd, "RETR") == 0) {
+        cmd_retr(i, arg);
+        return (1);
+    }
+    if (strcmp(cmd, "STOR") == 0) {
+        cmd_stor(i, arg);
+        return (1);
+    }
+    return (0);
+}
+
 static int dispatch_extra(int i, const char *cmd)
 {
     if (strcmp(cmd, "LIST") == 0) {
         cmd_list(i);
+        return (1);
+    }
+    if (strcmp(cmd, "CDUP") == 0) {
+        cmd_cdup(i);
         return (1);
     }
     if (strcmp(cmd, "NOOP") == 0) {
@@ -75,6 +97,8 @@ void dispatch_command(int i, const char *cmd,
     if (dispatch_auth(i, cmd, arg, ctx))
         return;
     if (dispatch_nav(i, cmd, arg))
+        return;
+    if (dispatch_file(i, cmd, arg))
         return;
     if (dispatch_extra(i, cmd))
         return;

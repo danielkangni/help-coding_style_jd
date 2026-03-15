@@ -24,6 +24,7 @@
     #include <signal.h>
     #include <limits.h>
     #include <strings.h>
+    #include <fcntl.h>
 
 enum {
     MAX_PENDING = 128,
@@ -79,9 +80,15 @@ void cmd_cwd(int i, const char *arg);
 void cmd_pasv(int i);
 void cmd_port(int i, const char *arg);
 void cmd_list(int i);
+void cmd_cdup(int i);
+void cmd_dele(int i, const char *arg);
+void cmd_retr(int i, const char *arg);
+void cmd_stor(int i, const char *arg);
 int create_pasv_socket(pasv_info_t *info, int ctrl_fd);
 void close_other_fds(int keep_ctrl, int keep_pasv);
 int open_data_conn(int idx);
 void start_list_transfer(int idx);
+void start_retr_transfer(int idx, const char *path);
+void start_stor_transfer(int idx, const char *path);
 
 #endif

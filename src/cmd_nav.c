@@ -22,7 +22,7 @@ void cmd_pwd(int i)
     send_reply(clients[i].fd, reply);
 }
 
-static void resolve_cwd(int i, const char *newpath)
+static int resolve_cwd(int i, const char *newpath)
 {
     struct stat st;
     char resolved[PATH_MAX];
@@ -31,7 +31,7 @@ static void resolve_cwd(int i, const char *newpath)
         || !S_ISDIR(st.st_mode)) {
         send_reply(clients[i].fd,
             "550 Failed to change directory.\r\n");
-        return;
+        return (-1);
     }
     if (realpath(newpath, resolved) != NULL)
         strncpy(clients[i].cwd, resolved,
@@ -40,8 +40,7 @@ static void resolve_cwd(int i, const char *newpath)
         strncpy(clients[i].cwd, newpath,
             sizeof(clients[i].cwd) - 1);
     clients[i].cwd[sizeof(clients[i].cwd) - 1] = '\0';
-    send_reply(clients[i].fd,
-        "250 Directory successfully changed.\r\n");
+    return (0);
 }
 
 void cmd_cwd(int i, const char *arg)
@@ -59,7 +58,25 @@ void cmd_cwd(int i, const char *arg)
     else
         snprintf(newpath, sizeof(newpath),
             "%s/%s", clients[i].cwd, arg);
-    resolve_cwd(i, newpath);
+    if (resolve_cwd(i, newpath) == 0)
+        send_reply(clients[i].fd,
+            "250 Directory successfully changed.\r\n");
+}
+
+void cmd_cdup(int i)
+{
+    char newpath[2048];
+
+    if (!clients[i].logged_in) {
+        send_reply(clients[i].fd,
+            "530 Not logged in.\r\n");
+        return;
+    }
+    snprintf(newpath, sizeof(newpath),
+        "%s/..", clients[i].cwd);
+    if (resolve_cwd(i, newpath) == 0)
+        send_reply(clients[i].fd,
+            "200 Directory successfully changed.\r\n");
 }
 
 void cmd_pasv(int i)

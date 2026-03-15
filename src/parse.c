@@ -52,7 +52,7 @@ static void process_buffer(int i, poll_ctx_t *ctx)
 {
     char *nl;
 
-    nl = strstr(clients[i].buf, "\n");
+    nl = strstr(clients[i].buf, "\r\n");
     while (nl != NULL) {
         *nl = '\0';
         process_line(i, clients[i].buf, ctx);
@@ -62,7 +62,7 @@ static void process_buffer(int i, poll_ctx_t *ctx)
         clients[i].buf_used -= (nl - clients[i].buf);
         memmove(clients[i].buf, nl, clients[i].buf_used);
         clients[i].buf[clients[i].buf_used] = '\0';
-        nl = strstr(clients[i].buf, "\n");
+        nl = strstr(clients[i].buf, "\r\n");
     }
 }
 

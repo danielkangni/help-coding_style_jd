@@ -19,8 +19,11 @@ SRC         = src/main.c \
               src/cmd_transfer.c \
               src/cmd_dispatch.c \
               src/pasv_socket.c \
+              src/cmd_file.c \
               src/data_conn.c \
-              src/list_transfer.c
+              src/list_transfer.c \
+              src/retr_transfer.c \
+              src/stor_transfer.c
 
 INCLUDES    = -I./include
 
